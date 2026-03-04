@@ -3,81 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CGRM Challenge - HaadThip</title>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;800&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
-  :root { --ci-green: #007947; --ci-red: #F40000; --bg-white: #ffffff; }
+  :root { 
+    --ci-green: #007947; /* สีหลัก 80% */
+    --ci-red: #F40000;   /* สีรอง 20% */
+    --bg-white: #ffffff; 
+  }
 
   body {
     font-family: 'Figtree', 'Kanit', sans-serif;
     background: transparent; margin: 0; padding: 20px;
-    display: flex; justify-content: center;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh;
   }
 
   /* --- Game Card Wrapper --- */
   .game-card {
     width: 100%; max-width: 1100px;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-radius: 30px;
     border: 1px solid rgba(0, 121, 71, 0.15);
     display: flex; flex-wrap: wrap;
     overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0, 79, 71, 0.1);
+    box-shadow: 0 25px 60px rgba(0, 79, 71, 0.15);
     position: relative;
-  }
-
-  /* รัศมีเรืองแสงตกแต่ง */
-  .game-card::before {
-    content: ''; position: absolute; top: -50%; left: -20%;
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(0, 121, 71, 0.05) 0%, transparent 70%);
-    z-index: 0;
   }
 
   /* --- ฝั่งข้อความ (Left Side) --- */
   .content-side {
-    flex: 1; min-width: 300px; padding: 50px;
+    flex: 1; min-width: 300px; padding: 60px 50px;
     display: flex; flex-direction: column; justify-content: center;
-    z-index: 1;
+    z-index: 1; position: relative;
+  }
+
+  /* ✅ ส่วนที่เพิ่มใหม่: ไอคอนจอยเกมขนาดใหญ่และเด่น */
+  .featured-icon-container {
+    margin-bottom: -10px;
+    margin-left: -5px;
+    position: relative;
+    width: fit-content;
+  }
+
+  .large-gamepad-icon {
+    font-size: 80px; /* ขนาดใหญ่เด่น */
+    color: var(--ci-green);
+    opacity: 0.9;
+    /* เอฟเฟกต์เรืองแสงสีเขียว */
+    filter: drop-shadow(0 0 15px rgba(0, 121, 71, 0.4));
+    /* แอนิเมชันลอยตัว */
+    animation: gamepadFloat 4s ease-in-out infinite;
+  }
+
+  /* ✅ แอนิเมชันลอยตัวและหมุนเล็กน้อย */
+  @keyframes gamepadFloat {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-15px) rotate(3deg); }
   }
 
   .game-badge {
-    background: rgba(244, 0, 0, 0.1); color: var(--ci-red);
-    padding: 6px 16px; border-radius: 50px; font-size: 13px;
-    font-weight: 700; width: fit-content; margin-bottom: 20px;
+    background: rgba(244, 0, 0, 0.08); color: var(--ci-red);
+    padding: 7px 18px; border-radius: 50px; font-size: 13px;
+    font-weight: 700; width: fit-content; margin-bottom: 25px;
     text-transform: uppercase; letter-spacing: 1px;
+    border: 1px solid rgba(244, 0, 0, 0.1);
   }
 
-  .main-title { font-size: 32px; font-weight: 800; color: var(--ci-green); margin: 0; line-height: 1.2; }
-  .sub-title { font-size: 16px; color: #64748b; margin: 15px 0 30px 0; line-height: 1.6; }
+  .main-title { font-size: 36px; font-weight: 800; color: var(--ci-green); margin: 0; line-height: 1.2; letter-spacing: -0.5px; }
+  .sub-title { font-size: 16px; color: #475569; margin: 20px 0 40px 0; line-height: 1.7; font-weight: 400; }
 
   .play-btn {
     background: linear-gradient(135deg, #007947 0%, #0b7a42 100%);
-    color: white; text-decoration: none; padding: 15px 35px;
+    color: white; text-decoration: none; padding: 16px 38px;
     border-radius: 50px; font-weight: 600; font-size: 16px;
-    width: fit-content; transition: 0.3s;
-    box-shadow: 0 10px 20px rgba(0, 121, 71, 0.2);
-    display: flex; align-items: center; gap: 10px;
+    width: fit-content; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 25px rgba(0, 121, 71, 0.3);
+    display: flex; align-items: center; gap: 12px;
   }
-  .play-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 121, 71, 0.3); }
+  .play-btn:hover { transform: translateY(-3px); box-shadow: 0 18px 35px rgba(0, 121, 71, 0.4); }
+  .btn-icon { font-size: 18px; }
 
   /* --- ฝั่งตัวเกม (Right Side) --- */
   .game-side {
-    flex: 1.5; min-width: 450px; background: #f8fafc;
-    position: relative; min-height: 500px;
-    border-left: 1px solid rgba(0, 121, 71, 0.05);
+    flex: 1.5; min-width: 450px; background: #fff;
+    position: relative; min-height: 600px;
+    border-left: 1px solid rgba(0, 121, 71, 0.08);
   }
 
   .game-frame {
     width: 100%; height: 100%; border: none;
-    background: white;
+    display: block;
   }
 
-  @media (max-width: 768px) {
+  /* --- Responsive Design --- */
+  @media (max-width: 900px) {
     .game-card { flex-direction: column; }
-    .game-side { min-width: 100%; min-height: 400px; border-left: none; border-top: 1px solid rgba(0, 121, 71, 0.05); }
-    .content-side { padding: 40px 30px; text-align: center; align-items: center; }
+    .game-side { min-width: 100%; min-height: 450px; border-left: none; border-top: 1px solid rgba(0, 121, 71, 0.08); }
+    .content-side { padding: 50px 30px; text-align: center; align-items: center; }
+    .large-gamepad-icon { font-size: 70px; }
+    .featured-icon-container { margin-left: 0; }
   }
 </style>
 </head>
@@ -85,12 +113,16 @@
 
 <div class="game-card">
   <div class="content-side">
+    <div class="featured-icon-container">
+      <i class="fas fa-gamepad large-gamepad-icon"></i>
+    </div>
+
     <div class="game-badge">Interactive Learning</div>
     <h1 class="main-title">CGRM Challenge<br>ร่วมสนุกทดสอบความรู้</h1>
-    <p class="sub-title">มาร่วมค้นหาพฤติกรรมที่ไม่เหมาะสม และเรียนรู้หลักการธรรมาภิบาลผ่านสถานการณ์จำลองในที่ทำงาน เพื่อสะสมคะแนนลุ้นรับรางวัล Risk Award!</p>
+    <p class="sub-title">มาร่วมค้นหาพฤติกรรมที่ไม่เหมาะสม และเรียนรู้หลักการธรรมาภิบาลผ่านสถานการณ์จำลองในที่ทำงาน เพื่อสะสมคะแนนลุ้นรับรางวัล <b>Risk Award</b>!</p>
     
     <a href="https://cgrmgame.lovable.app/" target="_blank" class="play-btn">
-      <span>🎮</span> เปิดหน้าจอเต็มเพื่อเริ่มเล่น
+      <i class="fas fa-external-link-alt btn-icon"></i> เปิดหน้าจอเต็มเพื่อเริ่มเล่น
     </a>
   </div>
 
